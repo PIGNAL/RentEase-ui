@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from '../../../core/services/car.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Car } from '../../../domain/models/car.model';
 
 @Component({
   selector: 'app-car-form',
