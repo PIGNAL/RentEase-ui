@@ -29,7 +29,6 @@ export class CarFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.carId) {
-      // Modificar
       this.car.id = this.carId;
       this.carService.updateCar(this.car).subscribe(() => {
         alert('Successfully modified car');
