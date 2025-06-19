@@ -1,0 +1,56 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+
+  label {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    color: #333;
+  }
+
+  input[type="text"] {
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  }
+
+  button[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.9rem;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover {
+      background: #0056b3;
+    }
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}
+@media (min-width: 600px) {
+  form {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+  }
+}

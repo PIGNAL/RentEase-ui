@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CarService } from '../../../core/services/car.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-car-form',
@@ -6,26 +8,39 @@ import { Component } from '@angular/core';
   standalone: false,
   styleUrl: './car-form.component.scss'
 })
-export class CarFormComponent {
-  // Define properties for the car form
-  carId: number | null = null;
-  make: string = '';
-  model: string = '';
-  year: number | null = null;
-  color: string = '';
-  pricePerDay: number | null = null;
+export class CarFormComponent implements OnInit {
+  
+  public car: Car = { id: 0, type: '', model: '' };
+  public carId?: number;
 
-  // Method to handle form submission
-  onSubmit() {
-    // Logic to handle form submission, e.g., saving the car details
-    console.log('Car submitted:', {
-      carId: this.carId,
-      make: this.make,
-      model: this.model,
-      year: this.year,
-      color: this.color,
-      pricePerDay: this.pricePerDay
-    });
+  constructor(
+    private readonly carService: CarService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.carId = +idParam;
+      this.carService.getCar(this.carId).subscribe(car => this.car = car);
+    }
+  }
+
+  onSubmit(): void {
+    if (this.carId) {
+      // Modificar
+      this.car.id = this.carId;
+      this.carService.updateCar(this.car).subscribe(() => {
+        alert('Successfully modified car');
+        this.router.navigate(['/home']);
+      });
+    } else {
+      this.carService.createCar(this.car).subscribe(() => {
+        alert('Auto added successfully');
+        this.router.navigate(['/home']);
+      });
+    }
   }
 
 }

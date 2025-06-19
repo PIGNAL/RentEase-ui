@@ -22,4 +22,8 @@ export class CarService {
   deleteCar(id: number): Observable<boolean> {
     return this.http.delete<boolean>(`${this.apiUrlCar}/${id}`);
   }
+
+  getCar(id: number): Observable<Car> {
+    return this.http.get<Car>(`${this.apiUrlCar}/${id}`);
+  }
 }
