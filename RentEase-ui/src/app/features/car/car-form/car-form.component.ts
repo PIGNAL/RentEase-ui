@@ -14,13 +14,11 @@ export class CarFormComponent implements OnInit {
   public carId?: number;
   public carForm: FormGroup;
 
-  // Inyección limpia
   private readonly carService = inject(CarService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
-  // Signal del auto actual
   public car = this.carService.car;
 
   constructor() {

@@ -7,14 +7,13 @@ import { environment } from '../../../envioremnts/enviroment';
 export class CarService {
   private apiUrlCar = `${environment.apiUrl}/api/car`;
 
-  // Estado interno de autos
   car = signal<Car | null>(null);
   cars = signal<Car[]>([]);
 
   constructor(private http: HttpClient) {}
 
   fetchCars() {
-    this.http.get<Car[]>(this.apiUrlCar).subscribe(data => this.cars.set(data));
+    return this.http.get<Car[]>(this.apiUrlCar).subscribe(data => this.cars.set(data));
   }
 
   fetchCar(id: number) {

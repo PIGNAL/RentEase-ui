@@ -10,12 +10,14 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SharedCommonModule } from './shared/common/common.module';
+import { CarListComponent } from './features/car/car-list/car-list.component';
 @NgModule({
   imports: [
   CarFormComponent,
   LoginComponent,
   RegisterComponent,
   NavbarComponent,
+  CarListComponent,
   SharedCommonModule,
   RouterModule.forRoot(routes),
 ],
