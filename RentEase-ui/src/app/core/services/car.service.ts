@@ -1,30 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../envioremnts/enviroment';
 import { Car } from '../../domain/models/car.model';
+import { environment } from '../../../envioremnts/enviroment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class CarService {
-  private apiUrlCar = `${environment}/api/car`
+  private apiUrlCar = `${environment.apiUrl}/api/car`;
+
+  // Estado interno de autos
+  car = signal<Car | null>(null);
+  cars = signal<Car[]>([]);
 
   constructor(private http: HttpClient) {}
 
-  createCar(car: Car): Observable<number> {
-    return this.http.post<number>(`${this.apiUrlCar}`, car);
+  fetchCars() {
+    this.http.get<Car[]>(this.apiUrlCar).subscribe(data => this.cars.set(data));
   }
 
-  updateCar(car: Car): Observable<boolean> {
-    return this.http.put<boolean>(`${this.apiUrlCar}`, car);
+  fetchCar(id: number) {
+    this.http.get<Car>(`${this.apiUrlCar}/${id}`).subscribe(data => this.car.set(data));
   }
 
-  deleteCar(id: number): Observable<boolean> {
+  createCar(car: Car) {
+    return this.http.post<number>(this.apiUrlCar, car);
+  }
+
+  updateCar(car: Car) {
+    return this.http.put<boolean>(this.apiUrlCar, car);
+  }
+
+  deleteCar(id: number) {
     return this.http.delete<boolean>(`${this.apiUrlCar}/${id}`);
-  }
-
-  getCar(id: number): Observable<Car> {
-    return this.http.get<Car>(`${this.apiUrlCar}/${id}`);
   }
 }

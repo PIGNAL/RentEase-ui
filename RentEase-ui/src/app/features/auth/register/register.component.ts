@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../../domain/models/user.model';
+import { SharedCommonModule } from '../../../shared/common/common.module';
 
 @Component({
   selector: 'app-register',
-  standalone: false,
+  imports:[SharedCommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

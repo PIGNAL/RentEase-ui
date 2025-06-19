@@ -1,25 +1,24 @@
-<form #carForm="ngForm" (ngSubmit)="onSubmit()">
+
+<form [formGroup]="carForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="type">Tipo:</label>
     <input
       type="text"
       id="type"
-      name="type"
-      [(ngModel)]="car.type"
-      required
+      formControlName="type"
     />
   </div>
+
   <div>
     <label for="model">Modelo:</label>
     <input
       type="text"
       id="model"
-      name="model"
-      [(ngModel)]="car.model"
-      required
+      formControlName="model"
     />
   </div>
+
   <button type="submit" [disabled]="carForm.invalid">
-    {{ car?.id ? 'Modificar' : 'Agregar' }}
+    {{ car()?.id ? 'Modificar' : 'Agregar' }}
   </button>
 </form>

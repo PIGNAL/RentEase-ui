@@ -1,46 +1,68 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect, inject } from '@angular/core';
+import { SharedCommonModule } from '../../../shared/common/common.module';
 import { CarService } from '../../../core/services/car.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Car } from '../../../domain/models/car.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-car-form',
+  imports: [SharedCommonModule],
   templateUrl: './car-form.component.html',
-  standalone: false,
-  styleUrl: './car-form.component.scss'
+  styleUrls: ['./car-form.component.scss']
 })
 export class CarFormComponent implements OnInit {
-  
-  public car: Car = { id: 0, type: '', model: '' };
   public carId?: number;
+  public carForm: FormGroup;
 
-  constructor(
-    private readonly carService: CarService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  // Inyección limpia
+  private readonly carService = inject(CarService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
+
+  // Signal del auto actual
+  public car = this.carService.car;
+
+  constructor() {
+    this.carForm = this.fb.group({
+      type: ['', Validators.required],
+      model: ['', Validators.required]
+    });
+
+    effect(() => {
+      const c = this.car();
+      if (c) {
+        this.carForm.patchValue({
+          type: c.type,
+          model: c.model
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.carId = +idParam;
-      this.carService.getCar(this.carId).subscribe(car => this.car = car);
+      this.carService.fetchCar(this.carId);
     }
   }
 
   onSubmit(): void {
+    if (this.carForm.invalid) return;
+
+    const formValue = this.carForm.value;
+
     if (this.carId) {
-      this.car.id = this.carId;
-      this.carService.updateCar(this.car).subscribe(() => {
+      this.carService.updateCar({ ...formValue, id: this.carId }).subscribe(() => {
         alert('Successfully modified car');
         this.router.navigate(['/home']);
       });
     } else {
-      this.carService.createCar(this.car).subscribe(() => {
+      this.carService.createCar(formValue).subscribe(() => {
         alert('Auto added successfully');
         this.router.navigate(['/home']);
       });
     }
   }
-
 }
