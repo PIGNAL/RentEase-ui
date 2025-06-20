@@ -1,0 +1,104 @@
+.rental-list-container {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.5rem 1rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #222;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .rental-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      background: #f5f7fa;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
+
+      .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        button {
+          padding: 0.5rem 1rem;
+          background: #111;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background 0.2s;
+          &:hover {
+            background: #333;
+          }
+          &:last-child {
+            background: #d32f2f;
+            &:hover {
+              background: #b71c1c;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .no-rentals {
+    text-align: center;
+    color: #555;
+    .new-rental-btn {
+      margin-top: 1rem;
+      padding: 0.7rem 1.2rem;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      &:hover {
+        background: #333;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .rental-list-container {
+    padding: 1rem 0.5rem;
+    max-width: 98vw;
+    font-size: 0.98rem;
+    .rental-list li {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+    .actions {
+      flex-direction: row !important;
+      gap: 0.7rem !important;
+      width: 100%;
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

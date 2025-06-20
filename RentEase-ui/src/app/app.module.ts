@@ -11,14 +11,19 @@ import { RegisterComponent } from './features/auth/register/register.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SharedCommonModule } from './shared/common/common.module';
 import { CarListComponent } from './features/car/car-list/car-list.component';
+import { RentalService } from './core/services/rental.service';
+import { RentalFormComponent } from './features/rental/rental-form/rental-form.component';
+import { RentalListComponent } from './features/rental/rental-list/rental-list.component';
 @NgModule({
   imports: [
   CarFormComponent,
+  CarListComponent,
   LoginComponent,
   RegisterComponent,
   NavbarComponent,
-  CarListComponent,
   SharedCommonModule,
+  RentalFormComponent,
+  RentalListComponent,
   RouterModule.forRoot(routes),
 ],
   providers: [
@@ -28,8 +33,8 @@ import { CarListComponent } from './features/car/car-list/car-list.component';
       multi: true
     },
     AuthService,
-    CarService
-
+    CarService,
+    RentalService
   ],
 })
 export class AppModule { }

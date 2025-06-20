@@ -1,0 +1,23 @@
+<form [formGroup]="rentalForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Fecha inicio:</label>
+    <input formControlName="startDate" type="date" />
+  </div>
+  <div>
+    <label>Fecha devolución:</label>
+    <input formControlName="endDate" type="date" />
+  </div>
+  <button type="button" (click)="onSearchAvailability()" [disabled]="!rentalForm.get('startDate')?.value || !rentalForm.get('endDate')?.value">
+    Consultar autos disponibles
+  </button>
+  <div *ngIf="loading()">Cargando autos...</div>
+  <div *ngIf="!loading() && availableCars().length > 0">
+    <label>Auto disponible:</label>
+    <select formControlName="carId">
+      <option *ngFor="let car of availableCars()" [value]="car.id">
+        {{ car.model }} ({{ car.type }})
+      </option>
+    </select>
+  </div>
+  <button type="submit" [disabled]="rentalForm.invalid">Registrar alquiler</button>
+</form>

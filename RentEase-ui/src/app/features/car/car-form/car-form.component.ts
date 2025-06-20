@@ -1,8 +1,9 @@
-import { Component, OnInit, effect, inject } from '@angular/core';
+import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { SharedCommonModule } from '../../../shared/common/common.module';
 import { CarService } from '../../../core/services/car.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Car } from '../../../domain/models/car.model';
 
 @Component({
   selector: 'app-car-form',
@@ -13,20 +14,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CarFormComponent implements OnInit {
   public carId?: number;
   public carForm: FormGroup;
+  public car = signal<Car | null>(null);
 
-  private readonly carService = inject(CarService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-  private readonly fb = inject(FormBuilder);
-
-  public car = this.carService.car;
-
-  constructor() {
+  constructor(private carService: CarService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private fb: FormBuilder) {
+    
     this.carForm = this.fb.group({
       type: ['', Validators.required],
       model: ['', Validators.required]
     });
-
+    
+    this.car = this.carService.car;
     effect(() => {
       const c = this.car();
       if (c) {

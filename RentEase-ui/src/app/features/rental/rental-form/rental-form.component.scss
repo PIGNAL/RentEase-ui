@@ -1,0 +1,62 @@
+form {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.5rem 1rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    display: block;
+    color: #222;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #c3cfe2;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 0.2rem;
+    background: #f5f7fa;
+    transition: border 0.2s;
+    &:focus {
+      border-color: #111;
+      outline: none;
+    }
+  }
+
+  button[type="button"], button[type="submit"] {
+    margin-top: 0.5rem;
+    padding: 0.7rem 1.2rem;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover {
+      background: #333;
+    }
+    &:disabled {
+      background: #ccc;
+      color: #888;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  form {
+    padding: 1rem 0.5rem;
+    max-width: 98vw;
+    font-size: 0.98rem;
+  }
+}

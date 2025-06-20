@@ -11,19 +11,21 @@ import { Car } from '../../../domain/models/car.model';
   styleUrls: ['./car-list.component.scss']
 })
 export class CarListComponent {
-  private readonly carService = inject(CarService);
-  private readonly router = inject(Router);
-
-  public cars = this.carService.cars;
+  public cars = signal<Car[]>([]);
   public loading = signal(true);
 
-  constructor() {
+
+  constructor(
+    private carService: CarService,
+    private router: Router
+  ) {
     this.fetchCars();
   }
 
   fetchCars() {
     this.loading.set(true);
     this.carService.fetchCars().add(() => this.loading.set(false));
+    this.cars = this.carService.cars;
   }
 
   newCar() {

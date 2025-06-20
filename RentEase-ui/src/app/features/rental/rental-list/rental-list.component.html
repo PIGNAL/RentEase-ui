@@ -1,0 +1,21 @@
+<div class="rental-list-container">
+  <h2>Mis alquileres</h2>
+  <div *ngIf="loading()">Cargando alquileres...</div>
+  <ul *ngIf="!loading() && rentals().length > 0" class="rental-list">
+    <li *ngFor="let rental of rentals()">
+      <div>
+        <b>Auto:</b> {{ rental.carModel }} ({{ rental.carType }})<br>
+        <b>Desde:</b> {{ rental.startDate | date }}<br>
+        <b>Hasta:</b> {{ rental.endDate | date }}
+      </div>
+      <div class="actions">
+        <button (click)="editRental(rental)">Modificar</button>
+        <button (click)="cancelRental(rental)">Cancelar</button>
+      </div>
+    </li>
+  </ul>
+  <div *ngIf="!loading() && rentals().length === 0" class="no-rentals">
+    No tienes alquileres registrados.
+    <button class="new-rental-btn" (click)="goToRentalForm()">+ Nuevo alquiler</button>
+  </div>
+</div>
