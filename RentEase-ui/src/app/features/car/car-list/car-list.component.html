@@ -1,12 +1,18 @@
-<div *ngIf="loading()">Cargando autos...</div>
-<button class="new-car-btn" (click)="newCar()">+ Nuevo auto</button>
-<ul *ngIf="!loading() && cars() && cars().length > 0" class="car-list">
-  <li *ngFor="let car of cars()">
-    <span><b>{{ car.model }}</b> ({{ car.type }})</span>
-    <button (click)="editCar(car)">Editar</button>
-    <button (click)="deleteCar(car)">Eliminar</button>
-  </li>
-</ul>
-<div *ngIf="!loading() && cars() && cars().length === 0">
-  No hay autos registrados.
+<div class="car-list-container">
+  <div *ngIf="loading()">Cargando autos...</div>
+  <button class="new-car-btn" (click)="newCar()">+ Nuevo auto</button>
+  <ul *ngIf="!loading() && cars() && cars().length > 0" class="car-list">
+    <li *ngFor="let car of cars()">
+      <div>
+        <b>{{ car.model }}</b> ({{ car.type }})
+      </div>
+      <div class="actions">
+        <button (click)="editCar(car)">Editar</button>
+        <button (click)="deleteCar(car)">Eliminar</button>
+      </div>
+    </li>
+  </ul>
+  <div *ngIf="!loading() && cars() && cars().length === 0">
+    No hay autos registrados.
+  </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SharedCommonModule } from '../../../shared/common/common.module';
 import { CarService } from '../../../core/services/car.service';
 import { Router } from '@angular/router';
@@ -11,8 +11,8 @@ import { Car } from '../../../domain/models/car.model';
   styleUrls: ['./car-list.component.scss']
 })
 export class CarListComponent {
-  public cars = signal<Car[]>([]);
-  public loading = signal(true);
+  cars = signal<Car[]>([]);
+  loading = signal(true);
 
 
   constructor(

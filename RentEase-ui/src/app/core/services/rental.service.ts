@@ -8,6 +8,7 @@ import { Rental } from '../../domain/models/rental.model';
 export class RentalService {
   private apiUrlRental = `${environment.apiUrl}/api/rental`;
   rentals = signal<Rental[]>([]);
+  rental = signal<Rental | null>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +21,15 @@ export class RentalService {
     return this.http.get<Rental[]>(this.apiUrlRental).subscribe(data => this.rentals.set(data));
   }
 
-  cancelRental(id: number) {
+  fetchRental(id:number) {
+    return this.http.get<Rental>(`${this.apiUrlRental}/${id}`).subscribe(data => this.rental.set(data));;
+  }
+
+  cancelRental(id:number) {
     return this.http.delete<boolean>(`${this.apiUrlRental}/${id}`);
+  }
+  
+  updateRental(rental: Rental) {
+    return this.http.put<boolean>(this.apiUrlRental, rental);
   }
 }

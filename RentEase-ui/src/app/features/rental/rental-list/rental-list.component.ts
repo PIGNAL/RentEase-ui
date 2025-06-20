@@ -2,6 +2,7 @@ import { Component, signal, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RentalService } from '../../../core/services/rental.service';
 import { SharedCommonModule } from '../../../shared/common/common.module';
+import { Rental } from '../../../domain/models/rental.model';
 
 @Component({
   selector: 'app-rental-list',
@@ -27,14 +28,14 @@ export class RentalListComponent implements OnInit {
   }
 
   goToRentalForm() {
-    this.router.navigate(['/rental/new']);
+    this.router.navigate(['/rental/']);
   }
 
-  editRental(rental: any) {
-    this.router.navigate(['/rental/edit', rental.id]);
+  editRental(rental: Rental) {
+    this.router.navigate(['/rental/',rental.id]);
   }
 
-  cancelRental(rental: any) {
+  cancelRental(rental: Rental) {
     if (confirm('¿Seguro que deseas cancelar este alquiler?')) {
       this.rentalService.cancelRental(rental.id).subscribe(() => {
         this.fetchRentals();

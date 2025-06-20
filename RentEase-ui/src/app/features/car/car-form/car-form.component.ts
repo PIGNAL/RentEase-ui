@@ -12,9 +12,9 @@ import { Car } from '../../../domain/models/car.model';
   styleUrls: ['./car-form.component.scss']
 })
 export class CarFormComponent implements OnInit {
-  public carId?: number;
-  public carForm: FormGroup;
-  public car = signal<Car | null>(null);
+  carId?: number;
+  carForm: FormGroup;
+  car = signal<Car | null>(null);
 
   constructor(private carService: CarService,
               private router: Router,
@@ -53,13 +53,13 @@ export class CarFormComponent implements OnInit {
 
     if (this.carId) {
       this.carService.updateCar({ ...formValue, id: this.carId }).subscribe(() => {
-        alert('Successfully modified car');
-        this.router.navigate(['/home']);
+        alert('Auto modificado correctamente');
+        this.router.navigate(['/car/list']);
       });
     } else {
       this.carService.createCar(formValue).subscribe(() => {
-        alert('Auto added successfully');
-        this.router.navigate(['/home']);
+        alert('Auto creado correctamente');
+        this.router.navigate(['/car/list']);
       });
     }
   }

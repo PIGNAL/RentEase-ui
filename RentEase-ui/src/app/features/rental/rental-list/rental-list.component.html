@@ -4,7 +4,7 @@
   <ul *ngIf="!loading() && rentals().length > 0" class="rental-list">
     <li *ngFor="let rental of rentals()">
       <div>
-        <b>Auto:</b> {{ rental.carModel }} ({{ rental.carType }})<br>
+        <b>Auto:</b> {{ rental.car.model }} ({{ rental.car.type }})<br>
         <b>Desde:</b> {{ rental.startDate | date }}<br>
         <b>Hasta:</b> {{ rental.endDate | date }}
       </div>

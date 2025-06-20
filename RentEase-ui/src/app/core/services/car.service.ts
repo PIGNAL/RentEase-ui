@@ -32,11 +32,11 @@ export class CarService {
     return this.http.delete<boolean>(`${this.apiUrlCar}/${id}`);
   }
 
-  getAvailableCars(startDate:Date, endDate:Date) {
+  getAvailableCars(startDate: Date, endDate: Date) {
     return this.http.get<Car[]>(`${this.apiUrlCar}/available`, {
       params: {
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString()
+        startDate: startDate.toString(),
+        endDate: endDate.toString()
       }
     });
   }

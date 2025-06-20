@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { CarFormComponent } from './features/car/car-form/car-form.component';
-import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { AuthGuard } from './core/guards/auth-guard';
@@ -15,8 +14,8 @@ export const routes: Routes = [
   { path: 'car/list', component: CarListComponent, canActivate: [AuthGuard],data: { roles: ['Administrator'] }  },
   { path: 'car/:id', component: CarFormComponent, canActivate: [AuthGuard],data: { roles: ['Administrator'] }  },  
   { path: 'car', component: CarFormComponent, canActivate: [AuthGuard],data: { roles: ['Administrator'] }  },
-  { path:'rental/list', component:RentalListComponent, canActivate: [AuthGuard] },
-  { path: 'rental/:carId/:customerId', component: RentalFormComponent, canActivate: [AuthGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: '**', pathMatch: 'full', redirectTo: 'home' } 
+  { path: 'rental/list', component:RentalListComponent, canActivate: [AuthGuard] },
+  { path: 'rental/:id', component: RentalFormComponent, canActivate: [AuthGuard] },
+  { path: 'rental', component: RentalFormComponent, canActivate: [AuthGuard] },
+  { path: '**', pathMatch: 'full', redirectTo: 'rental/list' } 
 ];
